@@ -1,0 +1,31 @@
+---
+# These tasks install http and the php modules.
+
+#- name: Update and upgrade apt packages
+#  become: true
+#  apt:
+#   upgrade: yes
+#    update_cache: yes
+#    cache_valid_time: 86400 #One day
+
+- name: install terraform
+  shell: curl -O https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip && unzip terraform_0.11.7_linux_amd64.zip && sudo mv ./terraform /usr/local/bin/terraform
+  args:
+    creates: /usr/local/bin/terraform
+
+- name: install awscli
+#  remote_user: ubuntu
+#  become: true
+  shell: pip install awscli --upgrade --user && export PATH=~/.local/bin:$PATH
+
+#- name: insert iptables rule for httpd
+#  lineinfile: dest=/etc/sysconfig/iptables create=yes state=present regexp="{{ httpd_port }}" insertafter="^:OUTPUT "
+#              line="-A INPUT -p tcp  --dport {{ httpd_port }} -j  ACCEPT"
+#  notify: restart iptables
+
+#- name: http service state
+#  service: name=httpd state=started enabled=yes
+
+#- name: Configure SELinux to allow httpd to connect to remote database
+#  seboolean: name=httpd_can_network_connect_db state=true persistent=yes
+#  when: sestatus.rc != 0

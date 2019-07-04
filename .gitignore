@@ -1,0 +1,18 @@
+terraform.tfplan
+terraform.tfstate
+./*.tfstate
+.terraform/
+*.log
+*.bak
+*.bakup
+.*.swp
+.idea
+*.iml
+*.test
+*.iml
+*.in
+*.pub
+
+# Test exclusions
+!command/testdata/**/*.tfstate
+!command/testdata/**/.terraform/

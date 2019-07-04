@@ -1,0 +1,19 @@
+---
+# These tasks install http and the php modules.
+
+#- name: Update and upgrade apt packages
+#  become: true
+#  apt:
+#   upgrade: yes
+#    update_cache: yes
+#    cache_valid_time: 86400 #One day
+
+- name: install kubectl
+  shell: curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x ./kubectl && sudo mv ./kubectl /usr/local/bin/kubectl
+  args:
+    creates: /usr/local/bin/kubectl
+
+- name: install kops
+  shell: curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64 && chmod +x ./kops && sudo mv ./kops /usr/local/bin/
+  args:
+    creates: /usr/local/bin/kops

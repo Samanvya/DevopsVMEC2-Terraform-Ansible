@@ -1,0 +1,40 @@
+---
+# This playbook deploys the whole application stack in this site.
+
+#- name: apply common configuration to all nodes
+#  hosts: all
+#  remote_user: ubuntu
+
+#  roles:
+#    - common
+
+- name: configure and deploy Dockers
+  hosts: localhost
+  remote_user: root
+  become: true
+
+  roles:
+    - docker
+
+- name: configure and deploy awscli*
+  hosts: localhost
+  remote_user: ubuntu
+#  become: true
+
+  roles:
+    - awscli
+
+- name: configure and deploy kops & kubectl*
+  hosts: localhost
+  remote_user: ubuntu
+#  become: true
+
+  roles:
+    - kops
+
+#- name: deploy MySQL and configure the databases
+#  hosts: dbservers
+#  remote_user: root
+
+#  roles:
+#    - db
